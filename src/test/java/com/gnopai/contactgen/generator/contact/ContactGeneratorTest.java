@@ -24,7 +24,7 @@ public class ContactGeneratorTest {
     @Mock FieldGenerator fieldGenerator3;
 
     @Test
-    public void testGenerateContact() throws Exception {
+    public void testGenerateContact() {
         // GIVEN
         ContactData initialContactData = ContactData.empty();
         ContactStatistics contactStatistics = ContactStatistics.empty();
@@ -37,25 +37,16 @@ public class ContactGeneratorTest {
         when(fieldGenerator2.generate(contactStatistics, contactDataAfterGenerator1)).thenReturn(contactDataAfterGenerator2);
         when(fieldGenerator3.generate(contactStatistics, contactDataAfterGenerator2)).thenReturn(contactDataAfterGenerator3);
 
-        // Get these to run in the worst possible order (3, 2, 1): we expect it'll go: 3 (x), 2(x), 1, 3 (x), 2, 3
         when(fieldGenerator1.requiresMoreData(any(ContactData.class))).thenReturn(false);
+        when(fieldGenerator2.requiresMoreData(any(ContactData.class))).thenReturn(false);
+        when(fieldGenerator3.requiresMoreData(any(ContactData.class))).thenReturn(false);
 
-        when(fieldGenerator2.requiresMoreData(any(ContactData.class))).thenReturn(true);
-        when(fieldGenerator2.requiresMoreData(contactDataAfterGenerator1)).thenReturn(false);
-
-        when(fieldGenerator3.requiresMoreData(any(ContactData.class))).thenReturn(true);
-        when(fieldGenerator3.requiresMoreData(contactDataAfterGenerator2)).thenReturn(false);
-
-        List<FieldGenerator> inefficentlyOrderedFieldGenerators = List.of(
-                fieldGenerator3,
-                fieldGenerator2,
-                fieldGenerator1
-        );
+        List<FieldGenerator> fieldGenerators = List.of(fieldGenerator1, fieldGenerator2, fieldGenerator3);
 
         Contact expectedContact = Contact.builder().ssn("yay").build();
         when(contactTransformer.transform(contactDataAfterGenerator3)).thenReturn(expectedContact);
 
-        ContactGenerator testClass = new ContactGenerator(inefficentlyOrderedFieldGenerators, contactTransformer);
+        ContactGenerator testClass = new ContactGenerator(fieldGenerators, contactTransformer);
 
         // WHEN
         Contact contact = testClass.generateContact(contactStatistics);
@@ -65,10 +56,10 @@ public class ContactGeneratorTest {
     }
 
     @Test(expected = IllegalStateException.class)
-    public void testNoInfiniteLoops() throws Exception {
+    public void testMissingData() {
         // GIVEN
-        when(fieldGenerator1.requiresMoreData(any(ContactData.class))).thenReturn(true);
-        when(fieldGenerator2.requiresMoreData(any(ContactData.class))).thenReturn(true);
+        when(fieldGenerator1.requiresMoreData(any(ContactData.class))).thenReturn(false);
+        when(fieldGenerator2.requiresMoreData(any(ContactData.class))).thenReturn(false);
         when(fieldGenerator3.requiresMoreData(any(ContactData.class))).thenReturn(true);
         List<FieldGenerator> fieldGenerators = List.of(fieldGenerator1, fieldGenerator2, fieldGenerator3);
 
@@ -77,7 +68,7 @@ public class ContactGeneratorTest {
         // WHEN
         testClass.generateContact(ContactStatistics.empty());
 
-        // THEN exception is (eventually) thrown
+        // THEN exception is thrown
     }
 
 }

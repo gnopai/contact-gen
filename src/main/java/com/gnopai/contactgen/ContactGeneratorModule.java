@@ -86,11 +86,24 @@ public class ContactGeneratorModule extends AbstractModule {
                                                        AreaCodeGenerator areaCodeGenerator,
                                                        PhoneExchangeGenerator phoneExchangeGenerator,
                                                        PhoneLineGenerator phoneLineGenerator) {
-        return List.of(genderGenerator, dateOfBirthGenerator,
-                firstNameGenerator, middleInitialGenerator, lastNameGenerator,
-                houseNumberGenerator, preDirectionalGenerator, streetNameGenerator,
-                streetSuffixGenerator, postDirectionalGenerator, unitGenerator,
-                stateGenerator, cityGenerator, zipCodeGenerator,
-                areaCodeGenerator, phoneExchangeGenerator, phoneLineGenerator);
+        // Note that order here is the order they'll run in.
+        return List.of(
+                genderGenerator,
+                dateOfBirthGenerator,
+                firstNameGenerator, // requires gender and DOB
+                middleInitialGenerator, // requires gender and DOB
+                lastNameGenerator,
+                houseNumberGenerator,
+                preDirectionalGenerator,
+                streetNameGenerator,
+                streetSuffixGenerator,
+                postDirectionalGenerator,
+                unitGenerator,
+                stateGenerator,
+                cityGenerator, // requires state
+                zipCodeGenerator, // requires city
+                areaCodeGenerator, // requires zip
+                phoneExchangeGenerator,
+                phoneLineGenerator);
     }
 }
