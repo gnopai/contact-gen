@@ -23,9 +23,9 @@ phone numbers that are guaranteed to be invalid, that sort of thing.
 Running It
 ----------
 
-Currently to run the app, you'll need to check it out of Github, import the project via the Gradle file,
-and then run Main.java. Right now it just spits out a list of 100 random people. I might at some point
-turn it into a little REST service.
+The app requires Gradle 4.10 and Java 11. Currently to run the app, you'll need to check it out of
+Github, import the project via the Gradle file, and then run Main.java. Right now it just spits out a
+list of 100 random people.
 
 Things To Do
 ------------
@@ -34,9 +34,9 @@ Things To Do
 still realistic-looking)
 * Race/ethnicity? The last-name data has percentage-by-ethnic-group which could make this particularly
 interesting.
+* The gender data is strictly binary -- it'd be nice to expand this.
 * The only cities used are the most populous in each respective state -- it'd be nice to have small-town
 support.
 * Document where all the statistics files came from, and how to re-retrieve them in the future
 * Integration testing
-* Make a REST-like service of this thing
 

@@ -10,7 +10,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static com.gnopai.contactgen.statistics.address.StreetSuffix.DRIVE;
-import static com.gnopai.contactgen.generator.address.StreetSuffixGenerator.ODDS_OF_LONG_STREET_NAME;
+import static com.gnopai.contactgen.generator.address.StreetSuffixGenerator.CHANCE_OF_LONG_STREET_NAME;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -23,7 +23,7 @@ public class StreetSuffixGeneratorTest {
         // GIVEN
         StreetSuffix streetSuffix = DRIVE;
         when(randomGenerator.selectNormallyDistributedListItem(StreetSuffix.valuesAsList())).thenReturn(streetSuffix);
-        when(randomGenerator.selectChance(ODDS_OF_LONG_STREET_NAME)).thenReturn(false);
+        when(randomGenerator.selectChance(CHANCE_OF_LONG_STREET_NAME)).thenReturn(false);
         ContactStatistics contactStatistics = ContactStatistics.builder().build();
 
         StreetSuffixGenerator testClass = new StreetSuffixGenerator(randomGenerator);
@@ -40,7 +40,7 @@ public class StreetSuffixGeneratorTest {
         // GIVEN
         StreetSuffix streetSuffix = DRIVE;
         when(randomGenerator.selectNormallyDistributedListItem(StreetSuffix.valuesAsList())).thenReturn(streetSuffix);
-        when(randomGenerator.selectChance(ODDS_OF_LONG_STREET_NAME)).thenReturn(true);
+        when(randomGenerator.selectChance(CHANCE_OF_LONG_STREET_NAME)).thenReturn(true);
         ContactStatistics contactStatistics = ContactStatistics.builder().build();
 
         StreetSuffixGenerator testClass = new StreetSuffixGenerator(randomGenerator);

@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static com.gnopai.contactgen.generator.name.MiddleInitialGenerator.ODDS_OF_HAVING_MIDDLE_INITIAL;
+import static com.gnopai.contactgen.generator.name.MiddleInitialGenerator.CHANCE_OF_HAVING_MIDDLE_INITIAL;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
@@ -22,7 +22,7 @@ public class MiddleInitialGeneratorTest {
         // GIVEN
         ContactData contactData = ContactData.empty();
         ContactStatistics contactStatistics = ContactStatistics.builder().build();
-        when(randomGenerator.selectChance(ODDS_OF_HAVING_MIDDLE_INITIAL)).thenReturn(true);
+        when(randomGenerator.selectChance(CHANCE_OF_HAVING_MIDDLE_INITIAL)).thenReturn(true);
         when(firstNameGenerator.generateFirstName(contactStatistics, contactData)).thenReturn("Bob");
 
         MiddleInitialGenerator testClass = new MiddleInitialGenerator(randomGenerator, firstNameGenerator);
@@ -39,7 +39,7 @@ public class MiddleInitialGeneratorTest {
         // GIVEN
         ContactData contactData = ContactData.empty();
         ContactStatistics contactStatistics = ContactStatistics.builder().build();
-        when(randomGenerator.selectChance(ODDS_OF_HAVING_MIDDLE_INITIAL)).thenReturn(false);
+        when(randomGenerator.selectChance(CHANCE_OF_HAVING_MIDDLE_INITIAL)).thenReturn(false);
         when(firstNameGenerator.generateFirstName(contactStatistics, contactData)).thenReturn("Bob");
 
         MiddleInitialGenerator testClass = new MiddleInitialGenerator(randomGenerator, firstNameGenerator);

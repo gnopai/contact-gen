@@ -10,7 +10,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.List;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -21,7 +20,7 @@ public class StreetNameGeneratorTest {
     @Test
     public void testGenerate() throws Exception {
         // GIVEN
-        List<String> streetNames = newArrayList("First", "Second", "Third");
+        List<String> streetNames = List.of("First", "Second", "Third");
         when(randomGenerator.selectUniformlyDistributedListItem(streetNames)).thenReturn("Awesome");
         ContactStatistics contactStatistics = ContactStatistics.builder().streetNames(streetNames).build();
 

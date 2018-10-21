@@ -7,7 +7,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static com.google.common.collect.Lists.newArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -30,7 +31,7 @@ public class ContactStatisticsLoaderTest {
         ContactStatistics contactStatisticsAfterSecondLoader = contactStatisticsAfterFirstLoader.withZipCodes(zipCodes);
         when(secondLoader.loadStatistics(contactStatisticsAfterFirstLoader)).thenReturn(contactStatisticsAfterSecondLoader);
 
-        ContactStatisticsLoader testClass = new ContactStatisticsLoader(newArrayList(firstLoader, secondLoader));
+        ContactStatisticsLoader testClass = new ContactStatisticsLoader(List.of(firstLoader, secondLoader));
 
         // WHEN
         ContactStatistics result = testClass.loadStatistics(contactStatistics);

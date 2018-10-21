@@ -5,7 +5,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static org.junit.Assert.assertEquals;
 
 public class FileProcessorTest {
@@ -20,7 +19,7 @@ public class FileProcessorTest {
         testClass.processLinesFromClasspathFile ("/file_processor_test.txt", results::add);
 
         // THEN
-        List<String> expectedResults = newArrayList("one", "two", "three", "four", "five");
+        List<String> expectedResults = List.of("one", "two", "three", "four", "five");
         assertEquals(expectedResults, results);
     }
 

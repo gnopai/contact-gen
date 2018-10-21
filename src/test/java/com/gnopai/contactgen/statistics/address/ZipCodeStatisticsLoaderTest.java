@@ -14,11 +14,11 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static com.gnopai.contactgen.model.State.*;
-import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Sets.newHashSet;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -54,17 +54,17 @@ public class ZipCodeStatisticsLoaderTest {
         assertZipCodesMatch(zipCodes, "Coos Bay", OREGON, "97420");
 
         assertEquals(expectedAreaCodes, contactStatistics.getAreaCodes());
-        verify(areaCodeCounter).addAll(ALASKA, "99790", newArrayList("907"));
-        verify(areaCodeCounter).addAll(ALASKA, "99706", newArrayList("907"));
-        verify(areaCodeCounter).addAll(ALASKA, "99707", newArrayList("907"));
-        verify(areaCodeCounter).addAll(WASHINGTON, "98275", newArrayList("425", "206"));
-        verify(areaCodeCounter).addAll(OREGON, "97420", newArrayList("541"));
+        verify(areaCodeCounter).addAll(ALASKA, "99790", List.of("907"));
+        verify(areaCodeCounter).addAll(ALASKA, "99706", List.of("907"));
+        verify(areaCodeCounter).addAll(ALASKA, "99707", List.of("907"));
+        verify(areaCodeCounter).addAll(WASHINGTON, "98275", List.of("425", "206"));
+        verify(areaCodeCounter).addAll(OREGON, "97420", List.of("541"));
         verify(areaCodeCounter).buildAreaCodes();
         verifyNoMoreInteractions(areaCodeCounter);
     }
 
     private void assertZipCodesMatch(ZipCodes zipCodes, String city, State state, String... expectedZipCodes) {
-        Set<String> actualZipCodes = newHashSet(zipCodes.getZipCodes(city, state));
-        assertEquals(newHashSet(expectedZipCodes), actualZipCodes);
+        Set<String> actualZipCodes = new HashSet<>(zipCodes.getZipCodes(city, state));
+        assertEquals(Set.of(expectedZipCodes), actualZipCodes);
     }
 }

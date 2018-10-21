@@ -1,15 +1,15 @@
 package com.gnopai.contactgen.generator;
 
-import com.google.inject.Inject;
 import com.gnopai.contactgen.generator.contact.ContactGenerator;
+import com.gnopai.contactgen.model.Contact;
 import com.gnopai.contactgen.statistics.ContactStatistics;
 import com.gnopai.contactgen.statistics.ContactStatisticsLoader;
-import com.gnopai.contactgen.model.Contact;
+import com.google.inject.Inject;
 
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toUnmodifiableList;
 
 public class ContactGeneratorService {
     private final ContactGenerator contactGenerator;
@@ -25,7 +25,7 @@ public class ContactGeneratorService {
         ContactStatistics contactStatistics = loadContactStatistics();
         return IntStream.range(0, count)
                 .mapToObj(i -> contactGenerator.generateContact(contactStatistics))
-                .collect(toList());
+                .collect(toUnmodifiableList());
     }
 
     private ContactStatistics loadContactStatistics() {

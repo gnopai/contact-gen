@@ -1,7 +1,7 @@
 package com.gnopai.contactgen.generator.address;
 
 import com.google.inject.Inject;
-import com.gnopai.contactgen.generator.random.Odds;
+import com.gnopai.contactgen.generator.random.Chance;
 import com.gnopai.contactgen.generator.random.RandomGenerator;
 import com.gnopai.contactgen.statistics.address.Directional;
 
@@ -13,8 +13,8 @@ public class DirectionalGenerator {
         this.randomGenerator = randomGenerator;
     }
 
-    public Directional generate(Odds odds) {
-        if (randomGenerator.selectChance(odds)) {
+    public Directional generate(Chance chance) {
+        if (randomGenerator.selectChance(chance)) {
             return randomGenerator.selectUniformlyDistributedListItem(Directional.valuesAsList());
         }
         return null;

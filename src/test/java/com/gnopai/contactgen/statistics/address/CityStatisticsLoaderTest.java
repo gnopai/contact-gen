@@ -9,7 +9,6 @@ import org.junit.Test;
 import java.util.List;
 import java.util.Map;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static com.gnopai.contactgen.model.State.*;
 import static org.junit.Assert.assertEquals;
 
@@ -32,8 +31,8 @@ public class CityStatisticsLoaderTest {
         // THEN
         Map<State, List<String>> citiesByState = contactStatistics.getCitiesByState();
         assertEquals(3, citiesByState.size());
-        assertEquals(newArrayList("Wichita", "Overland Park", "Kansas City", "Topeka"), citiesByState.get(KANSAS));
-        assertEquals(newArrayList("Charlotte", "Raleigh", "Greensboro"), citiesByState.get(NORTH_CAROLINA));
-        assertEquals(newArrayList("San Juan", "Bayamon"), citiesByState.get(PUERTO_RICO));
+        assertEquals(List.of("Wichita", "Overland Park", "Kansas City", "Topeka"), citiesByState.get(KANSAS));
+        assertEquals(List.of("Charlotte", "Raleigh", "Greensboro"), citiesByState.get(NORTH_CAROLINA));
+        assertEquals(List.of("San Juan", "Bayamon"), citiesByState.get(PUERTO_RICO));
     }
 }

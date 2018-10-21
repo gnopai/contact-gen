@@ -3,8 +3,8 @@ package com.gnopai.contactgen.statistics.util;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.List;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static org.junit.Assert.assertEquals;
 
 public class WeightedListTest {
@@ -48,7 +48,7 @@ public class WeightedListTest {
         weightedList.add("three", new BigDecimal("0.3"));
 
         // THEN
-        assertEquals(newArrayList("one", "two", "three"), weightedList.toList());
+        assertEquals(List.of("one", "two", "three"), weightedList.toList());
     }
 
 }

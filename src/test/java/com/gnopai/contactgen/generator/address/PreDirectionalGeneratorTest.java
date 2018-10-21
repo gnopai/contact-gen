@@ -9,7 +9,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import static com.gnopai.contactgen.statistics.address.Directional.SOUTHEAST;
 import static com.gnopai.contactgen.statistics.address.Directional.SOUTHWEST;
-import static com.gnopai.contactgen.generator.address.PreDirectionalGenerator.ODDS;
+import static com.gnopai.contactgen.generator.address.PreDirectionalGenerator.CHANCE;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
@@ -21,7 +21,7 @@ public class PreDirectionalGeneratorTest {
     public void testGenerate() throws Exception {
         // GIVEN
         ContactData contactData = ContactData.empty();
-        when(directionalGenerator.generate(ODDS)).thenReturn(SOUTHEAST);
+        when(directionalGenerator.generate(CHANCE)).thenReturn(SOUTHEAST);
         PreDirectionalGenerator testClass = new PreDirectionalGenerator(directionalGenerator);
 
         // WHEN
@@ -35,7 +35,7 @@ public class PreDirectionalGeneratorTest {
     public void testGenerate_postDirectionalPresent() throws Exception {
         // GIVEN
         ContactData contactData = ContactData.builder().postDirectional(SOUTHWEST).build();
-        when(directionalGenerator.generate(ODDS)).thenReturn(SOUTHEAST);
+        when(directionalGenerator.generate(CHANCE)).thenReturn(SOUTHEAST);
         PreDirectionalGenerator testClass = new PreDirectionalGenerator(directionalGenerator);
 
         // WHEN

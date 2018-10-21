@@ -2,13 +2,13 @@ package com.gnopai.contactgen.generator.name;
 
 import com.gnopai.contactgen.generator.ContactData;
 import com.gnopai.contactgen.generator.FieldGenerator;
-import com.gnopai.contactgen.generator.random.Odds;
+import com.gnopai.contactgen.generator.random.Chance;
 import com.gnopai.contactgen.generator.random.RandomGenerator;
 import com.gnopai.contactgen.statistics.ContactStatistics;
 import com.google.inject.Inject;
 
 public class MiddleInitialGenerator implements FieldGenerator {
-    static final Odds ODDS_OF_HAVING_MIDDLE_INITIAL = Odds.of(1).in(2);
+    static final Chance CHANCE_OF_HAVING_MIDDLE_INITIAL = Chance.of(1).in(2);
     private final RandomGenerator randomGenerator;
     private final FirstNameGenerator firstNameGenerator;
 
@@ -20,7 +20,7 @@ public class MiddleInitialGenerator implements FieldGenerator {
 
     @Override
     public ContactData generate(ContactStatistics contactStatistics, ContactData contactData) {
-        if (!randomGenerator.selectChance(ODDS_OF_HAVING_MIDDLE_INITIAL)) {
+        if (!randomGenerator.selectChance(CHANCE_OF_HAVING_MIDDLE_INITIAL)) {
             return contactData;
         }
         String middleInitial = generateMiddleInitial(contactStatistics, contactData);

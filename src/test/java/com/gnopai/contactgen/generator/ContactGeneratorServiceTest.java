@@ -11,7 +11,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.List;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -42,7 +41,7 @@ public class ContactGeneratorServiceTest {
         List<Contact> contacts = testClass.generateContacts(3);
 
         // THEN
-        List<Contact> expectedContacts = newArrayList(contact1, contact2, contact3);
+        List<Contact> expectedContacts = List.of(contact1, contact2, contact3);
         assertEquals(expectedContacts, contacts);
     }
 }

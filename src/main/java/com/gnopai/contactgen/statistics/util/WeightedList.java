@@ -8,7 +8,8 @@ import lombok.Value;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toUnmodifiableList;
 
 @EqualsAndHashCode
 @ToString
@@ -35,7 +36,7 @@ public class WeightedList<T> {
     public List<T> toList() {
         return entries.stream()
                 .map(Entry::getValue)
-                .collect(Collectors.toList());
+                .collect(toUnmodifiableList());
     }
 
     @Value

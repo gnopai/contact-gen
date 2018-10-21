@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static com.gnopai.contactgen.generator.gender.GenderGenerator.ODDS_OF_BEING_FEMALE;
+import static com.gnopai.contactgen.generator.gender.GenderGenerator.CHANCE_OF_BEING_FEMALE;
 import static com.gnopai.contactgen.model.Gender.FEMALE;
 import static com.gnopai.contactgen.model.Gender.MALE;
 import static org.junit.Assert.assertEquals;
@@ -22,7 +22,7 @@ public class GenderGeneratorTest {
     @Test
     public void testGenerateGender_female() throws Exception {
         // GIVEN
-        when(randomGenerator.selectChance(ODDS_OF_BEING_FEMALE)).thenReturn(true);
+        when(randomGenerator.selectChance(CHANCE_OF_BEING_FEMALE)).thenReturn(true);
 
         GenderGenerator testClass = new GenderGenerator(randomGenerator);
 
@@ -36,7 +36,7 @@ public class GenderGeneratorTest {
     @Test
     public void testGenerateGender_male() throws Exception {
         // GIVEN
-        when(randomGenerator.selectChance(ODDS_OF_BEING_FEMALE)).thenReturn(false);
+        when(randomGenerator.selectChance(CHANCE_OF_BEING_FEMALE)).thenReturn(false);
 
         GenderGenerator testClass = new GenderGenerator(randomGenerator);
 

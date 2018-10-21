@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static org.junit.Assert.assertEquals;
 
 public class DateOfBirthStatisticsLoaderTest {
@@ -27,7 +26,7 @@ public class DateOfBirthStatisticsLoaderTest {
         ContactStatistics contactStatistics = testClass.loadStatistics(ContactStatistics.empty());
 
         // THEN
-        List<Range> expected = newArrayList(
+        List<Range> expected = List.of(
                 new Range(0, 25),
                 new Range(25, 50),
                 new Range(50, 75),
