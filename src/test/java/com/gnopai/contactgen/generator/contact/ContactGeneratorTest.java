@@ -12,7 +12,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.List;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
@@ -47,7 +46,7 @@ public class ContactGeneratorTest {
         when(fieldGenerator3.requiresMoreData(any(ContactData.class))).thenReturn(true);
         when(fieldGenerator3.requiresMoreData(contactDataAfterGenerator2)).thenReturn(false);
 
-        List<FieldGenerator> inefficentlyOrderedFieldGenerators = newArrayList(
+        List<FieldGenerator> inefficentlyOrderedFieldGenerators = List.of(
                 fieldGenerator3,
                 fieldGenerator2,
                 fieldGenerator1
@@ -71,7 +70,7 @@ public class ContactGeneratorTest {
         when(fieldGenerator1.requiresMoreData(any(ContactData.class))).thenReturn(true);
         when(fieldGenerator2.requiresMoreData(any(ContactData.class))).thenReturn(true);
         when(fieldGenerator3.requiresMoreData(any(ContactData.class))).thenReturn(true);
-        List<FieldGenerator> fieldGenerators = newArrayList(fieldGenerator1, fieldGenerator2, fieldGenerator3);
+        List<FieldGenerator> fieldGenerators = List.of(fieldGenerator1, fieldGenerator2, fieldGenerator3);
 
         ContactGenerator testClass = new ContactGenerator(fieldGenerators, contactTransformer);
 

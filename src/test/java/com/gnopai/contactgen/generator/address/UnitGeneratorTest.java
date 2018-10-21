@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static com.gnopai.contactgen.generator.address.UnitGenerator.ODDS;
+import static com.gnopai.contactgen.generator.address.UnitGenerator.CHANCE;
 import static com.gnopai.contactgen.generator.address.UnitGenerator.UNIT_NUMBER_MAX;
 import static com.gnopai.contactgen.generator.address.UnitGenerator.UNIT_NUMBER_MIN;
 import static com.gnopai.contactgen.statistics.address.UnitType.APARTMENT;
@@ -25,7 +25,7 @@ public class UnitGeneratorTest {
     public void testGenerate_unitPresent() throws Exception {
         // GIVEN
         UnitType unitType = APARTMENT;
-        when(randomGenerator.selectChance(ODDS)).thenReturn(true);
+        when(randomGenerator.selectChance(CHANCE)).thenReturn(true);
         when(randomGenerator.selectNormallyDistributedListItem(UnitType.valuesAsList())).thenReturn(unitType);
         when(randomGenerator.selectInteger(UNIT_NUMBER_MIN, UNIT_NUMBER_MAX)).thenReturn(666);
 
@@ -42,7 +42,7 @@ public class UnitGeneratorTest {
     public void testGenerate_unitNotPresent() throws Exception {
         // GIVEN
         UnitType unitType = APARTMENT;
-        when(randomGenerator.selectChance(ODDS)).thenReturn(false);
+        when(randomGenerator.selectChance(CHANCE)).thenReturn(false);
         when(randomGenerator.selectNormallyDistributedListItem(UnitType.valuesAsList())).thenReturn(unitType);
         when(randomGenerator.selectInteger(UNIT_NUMBER_MIN, UNIT_NUMBER_MAX)).thenReturn(666);
 

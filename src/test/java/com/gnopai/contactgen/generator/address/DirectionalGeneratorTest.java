@@ -1,6 +1,6 @@
 package com.gnopai.contactgen.generator.address;
 
-import com.gnopai.contactgen.generator.random.Odds;
+import com.gnopai.contactgen.generator.random.Chance;
 import com.gnopai.contactgen.generator.random.RandomGenerator;
 import com.gnopai.contactgen.statistics.address.Directional;
 import org.junit.Test;
@@ -20,8 +20,8 @@ public class DirectionalGeneratorTest {
     @Test
     public void testGenerate() throws Exception {
         // GIVEN
-        Odds odds = Odds.of(1).in(5);
-        when(randomGenerator.selectChance(odds))
+        Chance chance = Chance.of(1).in(5);
+        when(randomGenerator.selectChance(chance))
                 .thenReturn(false) // first run not present
                 .thenReturn(true); // second run present
 
@@ -31,8 +31,8 @@ public class DirectionalGeneratorTest {
         DirectionalGenerator testClass = new DirectionalGenerator(randomGenerator);
 
         // WHEN / THEN
-        assertNull(testClass.generate(odds));
-        assertEquals(expectedDirectional, testClass.generate(odds));
+        assertNull(testClass.generate(chance));
+        assertEquals(expectedDirectional, testClass.generate(chance));
     }
 
 

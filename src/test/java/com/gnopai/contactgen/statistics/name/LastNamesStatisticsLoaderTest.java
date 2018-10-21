@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static org.junit.Assert.assertEquals;
 
 public class LastNamesStatisticsLoaderTest {
@@ -27,7 +26,7 @@ public class LastNamesStatisticsLoaderTest {
         ContactStatistics contactStatistics = testClass.loadStatistics(ContactStatistics.empty());
 
         // THEN
-        List<String> expected = newArrayList("Smith", "Johnson", "Williams", "Brown", "Jones");
+        List<String> expected = List.of("Smith", "Johnson", "Williams", "Brown", "Jones");
         assertEquals(expected, contactStatistics.getLastNames().toList());
     }
 }

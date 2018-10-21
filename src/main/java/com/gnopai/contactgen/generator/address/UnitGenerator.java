@@ -4,12 +4,12 @@ import com.google.inject.Inject;
 import com.gnopai.contactgen.generator.ContactData;
 import com.gnopai.contactgen.generator.FieldGenerator;
 import com.gnopai.contactgen.statistics.ContactStatistics;
-import com.gnopai.contactgen.generator.random.Odds;
+import com.gnopai.contactgen.generator.random.Chance;
 import com.gnopai.contactgen.generator.random.RandomGenerator;
 import com.gnopai.contactgen.statistics.address.UnitType;
 
 public class UnitGenerator implements FieldGenerator {
-    static final Odds ODDS = Odds.of(1).in(10);
+    static final Chance CHANCE = Chance.of(1).in(10);
     static final int UNIT_NUMBER_MIN = 1;
     static final int UNIT_NUMBER_MAX = 100;
     private final RandomGenerator randomGenerator;
@@ -21,7 +21,7 @@ public class UnitGenerator implements FieldGenerator {
 
     @Override
     public ContactData generate(ContactStatistics contactStatistics, ContactData contactData) {
-        if (randomGenerator.selectChance(ODDS)) {
+        if (randomGenerator.selectChance(CHANCE)) {
             return contactData.withUnit(generateUnit());
         }
         return contactData;

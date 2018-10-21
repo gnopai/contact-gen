@@ -13,7 +13,10 @@ import com.gnopai.contactgen.generator.phone.PhoneLineGenerator;
 import com.gnopai.contactgen.generator.random.RandomGenerator;
 import com.gnopai.contactgen.generator.random.StandardRandomGenerator;
 import com.gnopai.contactgen.statistics.StatisticsLoader;
-import com.gnopai.contactgen.statistics.address.*;
+import com.gnopai.contactgen.statistics.address.CityStatisticsLoader;
+import com.gnopai.contactgen.statistics.address.StateStatisticsLoader;
+import com.gnopai.contactgen.statistics.address.StreetNamesStatisticsLoader;
+import com.gnopai.contactgen.statistics.address.ZipCodeStatisticsLoader;
 import com.gnopai.contactgen.statistics.dob.DateOfBirthStatisticsLoader;
 import com.gnopai.contactgen.statistics.name.FirstNamesStatisticsLoader;
 import com.gnopai.contactgen.statistics.name.LastNamesStatisticsLoader;
@@ -24,7 +27,6 @@ import com.google.inject.Singleton;
 import java.util.List;
 import java.util.Properties;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static com.google.inject.name.Names.bindProperties;
 
 public class ContactGeneratorModule extends AbstractModule {
@@ -60,7 +62,7 @@ public class ContactGeneratorModule extends AbstractModule {
                                                            StateStatisticsLoader stateStatisticsLoader,
                                                            ZipCodeStatisticsLoader zipCodeStatisticsLoader,
                                                            DateOfBirthStatisticsLoader dateOfBirthStatisticsLoader) {
-        return newArrayList(firstNamesStatisticsLoader, lastNamesStatisticsLoader,
+        return List.of(firstNamesStatisticsLoader, lastNamesStatisticsLoader,
                 streetNamesStatisticsLoader, cityStatisticsLoader, stateStatisticsLoader,
                 zipCodeStatisticsLoader, dateOfBirthStatisticsLoader);
     }
@@ -84,7 +86,7 @@ public class ContactGeneratorModule extends AbstractModule {
                                                        AreaCodeGenerator areaCodeGenerator,
                                                        PhoneExchangeGenerator phoneExchangeGenerator,
                                                        PhoneLineGenerator phoneLineGenerator) {
-        return newArrayList(genderGenerator, dateOfBirthGenerator,
+        return List.of(genderGenerator, dateOfBirthGenerator,
                 firstNameGenerator, middleInitialGenerator, lastNameGenerator,
                 houseNumberGenerator, preDirectionalGenerator, streetNameGenerator,
                 streetSuffixGenerator, postDirectionalGenerator, unitGenerator,

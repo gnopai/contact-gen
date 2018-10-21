@@ -61,8 +61,8 @@ public class StandardRandomGenerator implements RandomGenerator {
     }
 
     @Override
-    public boolean selectChance(Odds odds) {
-        return odds.getX() > random.nextInt(odds.getY());
+    public boolean selectChance(Chance chance) {
+        return chance.getX() > random.nextInt(chance.getY());
     }
 
 }

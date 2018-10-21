@@ -14,10 +14,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static com.gnopai.contactgen.generator.phone.AreaCodeGenerator.ODDS_OF_LOCAL_AREA_CODE;
-import static com.gnopai.contactgen.generator.phone.AreaCodeGenerator.ODDS_OF_STATE_VS_REMOTE_AREA_CODE;
+import static com.gnopai.contactgen.generator.phone.AreaCodeGenerator.CHANCE_OF_LOCAL_AREA_CODE;
+import static com.gnopai.contactgen.generator.phone.AreaCodeGenerator.CHANCE_OF_STATE_VS_REMOTE_AREA_CODE;
 import static com.gnopai.contactgen.model.State.*;
-import static com.google.common.collect.Lists.newArrayList;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -29,14 +28,14 @@ public class AreaCodeGeneratorTest {
     @Test
     public void testLocalAreaCode() throws Exception {
         // GIVEN
-        when(randomGenerator.selectChance(ODDS_OF_LOCAL_AREA_CODE)).thenReturn(true);
-        when(randomGenerator.selectChance(ODDS_OF_STATE_VS_REMOTE_AREA_CODE)).thenReturn(true);
+        when(randomGenerator.selectChance(CHANCE_OF_LOCAL_AREA_CODE)).thenReturn(true);
+        when(randomGenerator.selectChance(CHANCE_OF_STATE_VS_REMOTE_AREA_CODE)).thenReturn(true);
         String zipCode = "97201";
         ContactData contactData = ContactData.builder()
                 .zipCode(zipCode)
                 .state(OREGON)
                 .build();
-        List<String> areaCodesForZipCode = newArrayList("503", "971");
+        List<String> areaCodesForZipCode = List.of("503", "971");
         when(areaCodes.getAreaCodesForZipCode(zipCode)).thenReturn(areaCodesForZipCode);
         String expectedAreaCode = "666";
         when(randomGenerator.selectUniformlyDistributedListItem(areaCodesForZipCode)).thenReturn(expectedAreaCode);
@@ -53,10 +52,10 @@ public class AreaCodeGeneratorTest {
     }
 
     @Test
-    public void testSemiLocalAreaCode() throws Exception {
+    public void testInStateAreaCode() throws Exception {
         // GIVEN
-        when(randomGenerator.selectChance(ODDS_OF_LOCAL_AREA_CODE)).thenReturn(false);
-        when(randomGenerator.selectChance(ODDS_OF_STATE_VS_REMOTE_AREA_CODE)).thenReturn(true);
+        when(randomGenerator.selectChance(CHANCE_OF_LOCAL_AREA_CODE)).thenReturn(false);
+        when(randomGenerator.selectChance(CHANCE_OF_STATE_VS_REMOTE_AREA_CODE)).thenReturn(true);
         State state = OREGON;
         ContactData contactData = ContactData.builder()
                 .zipCode("97201")
@@ -80,10 +79,10 @@ public class AreaCodeGeneratorTest {
     }
 
     @Test
-    public void testRemoteAreaCode() throws Exception {
+    public void testOutOfStateAreaCode() throws Exception {
         // GIVEN
-        when(randomGenerator.selectChance(ODDS_OF_LOCAL_AREA_CODE)).thenReturn(false);
-        when(randomGenerator.selectChance(ODDS_OF_STATE_VS_REMOTE_AREA_CODE)).thenReturn(false);
+        when(randomGenerator.selectChance(CHANCE_OF_LOCAL_AREA_CODE)).thenReturn(false);
+        when(randomGenerator.selectChance(CHANCE_OF_STATE_VS_REMOTE_AREA_CODE)).thenReturn(false);
         ContactData contactData = ContactData.builder()
                 .zipCode("97201")
                 .state(OREGON)

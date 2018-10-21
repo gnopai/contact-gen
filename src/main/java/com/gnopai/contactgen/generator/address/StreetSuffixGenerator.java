@@ -4,12 +4,12 @@ import com.google.inject.Inject;
 import com.gnopai.contactgen.generator.ContactData;
 import com.gnopai.contactgen.generator.FieldGenerator;
 import com.gnopai.contactgen.statistics.ContactStatistics;
-import com.gnopai.contactgen.generator.random.Odds;
+import com.gnopai.contactgen.generator.random.Chance;
 import com.gnopai.contactgen.generator.random.RandomGenerator;
 import com.gnopai.contactgen.statistics.address.StreetSuffix;
 
 public class StreetSuffixGenerator implements FieldGenerator {
-    static final Odds ODDS_OF_LONG_STREET_NAME = Odds.of(1).in(4);
+    static final Chance CHANCE_OF_LONG_STREET_NAME = Chance.of(1).in(4);
     private final RandomGenerator randomGenerator;
 
     @Inject
@@ -24,6 +24,6 @@ public class StreetSuffixGenerator implements FieldGenerator {
 
     private String generateStreetSuffix() {
         StreetSuffix streetSuffix = randomGenerator.selectNormallyDistributedListItem(StreetSuffix.valuesAsList());
-        return randomGenerator.selectChance(ODDS_OF_LONG_STREET_NAME) ? streetSuffix.getLongName() : streetSuffix.getShortName();
+        return randomGenerator.selectChance(CHANCE_OF_LONG_STREET_NAME) ? streetSuffix.getLongName() : streetSuffix.getShortName();
     }
 }

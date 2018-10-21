@@ -23,6 +23,7 @@ public class ContactGenerator {
         this.contactTransformer = contactTransformer;
     }
 
+    // FIXME???
     public Contact generateContact(ContactStatistics contactStatistics) {
         int counter = 1;
         ContactData contactData = ContactData.empty();

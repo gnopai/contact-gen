@@ -8,7 +8,6 @@ import org.junit.Test;
 import java.util.List;
 
 import static com.gnopai.contactgen.model.State.*;
-import static com.google.common.collect.Lists.newArrayList;
 import static org.junit.Assert.assertEquals;
 
 public class StateStatisticsLoaderTest {
@@ -29,7 +28,7 @@ public class StateStatisticsLoaderTest {
         ContactStatistics contactStatistics = testClass.loadStatistics(ContactStatistics.empty());
 
         // THEN
-        List<State> expectedStates = newArrayList(WISCONSIN, MINNESOTA, COLORADO, ALABAMA, SOUTH_CAROLINA);
+        List<State> expectedStates = List.of(WISCONSIN, MINNESOTA, COLORADO, ALABAMA, SOUTH_CAROLINA);
         assertEquals(expectedStates, contactStatistics.getStates().toList());
     }
 }

@@ -7,9 +7,9 @@ import com.gnopai.contactgen.statistics.util.WeightedListBuilderByVolume;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static com.gnopai.contactgen.model.State.OREGON;
 import static com.gnopai.contactgen.model.State.WASHINGTON;
 import static org.junit.Assert.assertEquals;
@@ -23,11 +23,11 @@ public class AreaCodeCounterTest {
         AreaCodeCounter testClass = new AreaCodeCounter(scale);
 
         // WHEN
-        testClass.addAll(OREGON, "97201", newArrayList("1", "2", "3"));
-        testClass.addAll(OREGON, "97202", newArrayList("2", "3"));
-        testClass.addAll(OREGON, "97203", newArrayList("4", "3"));
-        testClass.addAll(WASHINGTON, "98601", newArrayList("6"));
-        testClass.addAll(WASHINGTON, "98602", newArrayList("6", "7"));
+        testClass.addAll(OREGON, "97201", List.of("1", "2", "3"));
+        testClass.addAll(OREGON, "97202", List.of("2", "3"));
+        testClass.addAll(OREGON, "97203", List.of("4", "3"));
+        testClass.addAll(WASHINGTON, "98601", List.of("6"));
+        testClass.addAll(WASHINGTON, "98602", List.of("6", "7"));
         AreaCodes areaCodes = testClass.buildAreaCodes();
 
         // THEN
@@ -44,11 +44,11 @@ public class AreaCodeCounterTest {
                 .build());
 
         ArrayListMultimap<String, String> expectedAreaCodesByZipCode = ArrayListMultimap.create();
-        expectedAreaCodesByZipCode.putAll("97201", newArrayList("1", "2", "3"));
-        expectedAreaCodesByZipCode.putAll("97202", newArrayList("2", "3"));
-        expectedAreaCodesByZipCode.putAll("97203", newArrayList("4", "3"));
-        expectedAreaCodesByZipCode.putAll("98601", newArrayList("6"));
-        expectedAreaCodesByZipCode.putAll("98602", newArrayList("6", "7"));
+        expectedAreaCodesByZipCode.putAll("97201", List.of("1", "2", "3"));
+        expectedAreaCodesByZipCode.putAll("97202", List.of("2", "3"));
+        expectedAreaCodesByZipCode.putAll("97203", List.of("4", "3"));
+        expectedAreaCodesByZipCode.putAll("98601", List.of("6"));
+        expectedAreaCodesByZipCode.putAll("98602", List.of("6", "7"));
 
         AreaCodes expectedAreaCodes = new AreaCodes(expectedAreaCodesByZipCode, expectedAreaCodesByState);
         assertEquals(expectedAreaCodes, areaCodes);

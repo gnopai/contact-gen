@@ -3,8 +3,8 @@ package com.gnopai.contactgen.generator.address;
 import com.gnopai.contactgen.generator.ContactData;
 import com.gnopai.contactgen.generator.random.RandomGenerator;
 import com.gnopai.contactgen.model.State;
-import com.gnopai.contactgen.statistics.address.ZipCodes;
 import com.gnopai.contactgen.statistics.ContactStatistics;
+import com.gnopai.contactgen.statistics.address.ZipCodes;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -13,7 +13,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.List;
 
 import static com.gnopai.contactgen.model.State.OREGON;
-import static com.google.common.collect.Lists.newArrayList;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
@@ -27,7 +26,7 @@ public class ZipCodeGeneratorTest {
         // GIVEN
         String city = "Portland";
         State state = OREGON;
-        List<String> zipCodesForCity = newArrayList("97201", "97202", "97203");
+        List<String> zipCodesForCity = List.of("97201", "97202", "97203");
         when(zipCodes.getZipCodes(city, state)).thenReturn(zipCodesForCity);
         when(randomGenerator.selectUniformlyDistributedListItem(zipCodesForCity)).thenReturn("97204");
         ContactData contactData = ContactData.builder().city(city).state(state).build();

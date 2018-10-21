@@ -2,7 +2,7 @@ package com.gnopai.contactgen.generator.phone;
 
 import com.gnopai.contactgen.generator.ContactData;
 import com.gnopai.contactgen.generator.FieldGenerator;
-import com.gnopai.contactgen.generator.random.Odds;
+import com.gnopai.contactgen.generator.random.Chance;
 import com.gnopai.contactgen.generator.random.RandomGenerator;
 import com.gnopai.contactgen.model.State;
 import com.gnopai.contactgen.statistics.ContactStatistics;
@@ -13,8 +13,8 @@ import com.google.inject.Inject;
 import java.util.List;
 
 public class AreaCodeGenerator implements FieldGenerator {
-    static final Odds ODDS_OF_LOCAL_AREA_CODE = Odds.of(2).in(3);
-    static final Odds ODDS_OF_STATE_VS_REMOTE_AREA_CODE = Odds.of(1).in(2);
+    static final Chance CHANCE_OF_LOCAL_AREA_CODE = Chance.of(2).in(3);
+    static final Chance CHANCE_OF_STATE_VS_REMOTE_AREA_CODE = Chance.of(1).in(2);
 
     private final RandomGenerator randomGenerator;
 
@@ -30,17 +30,17 @@ public class AreaCodeGenerator implements FieldGenerator {
     }
 
     private String generateAreaCode(ContactStatistics contactStatistics, ContactData contactData) {
-        boolean useLocalAreaCode = randomGenerator.selectChance(ODDS_OF_LOCAL_AREA_CODE);
+        boolean useLocalAreaCode = randomGenerator.selectChance(CHANCE_OF_LOCAL_AREA_CODE);
         if (useLocalAreaCode) {
             return generateLocalAreaCode(contactStatistics, contactData.getZipCode());
         }
 
-        boolean useSemiLocalAreaCode = randomGenerator.selectChance(ODDS_OF_STATE_VS_REMOTE_AREA_CODE);
+        boolean useSemiLocalAreaCode = randomGenerator.selectChance(CHANCE_OF_STATE_VS_REMOTE_AREA_CODE);
         if (useSemiLocalAreaCode) {
-            return generateSemiLocalAreaCode(contactStatistics, contactData.getState());
+            return generateInStateAreaCode(contactStatistics, contactData.getState());
         }
 
-        return generateRemoteAreaCode(contactStatistics);
+        return generateOutOfStateAreaCode(contactStatistics);
     }
 
     private String generateLocalAreaCode(ContactStatistics contactStatistics, String zipCode) {
@@ -49,15 +49,15 @@ public class AreaCodeGenerator implements FieldGenerator {
         return randomGenerator.selectUniformlyDistributedListItem(areaCodesForZipCode);
     }
 
-    private String generateSemiLocalAreaCode(ContactStatistics contactStatistics, State state) {
+    private String generateInStateAreaCode(ContactStatistics contactStatistics, State state) {
         AreaCodes areaCodes = contactStatistics.getAreaCodes();
         WeightedList<String> areaCodesForState = areaCodes.getAreaCodesForState(state);
         return randomGenerator.selectWeightDistributedListItem(areaCodesForState);
     }
 
-    private String generateRemoteAreaCode(ContactStatistics contactStatistics) {
+    private String generateOutOfStateAreaCode(ContactStatistics contactStatistics) {
         State stateOfSomePreviousResidence = randomGenerator.selectWeightDistributedListItem(contactStatistics.getStates());
-        return generateSemiLocalAreaCode(contactStatistics, stateOfSomePreviousResidence);
+        return generateInStateAreaCode(contactStatistics, stateOfSomePreviousResidence);
     }
 
     @Override

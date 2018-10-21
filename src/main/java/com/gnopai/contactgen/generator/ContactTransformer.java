@@ -1,12 +1,10 @@
 package com.gnopai.contactgen.generator;
 
-import com.google.common.base.Joiner;
 import com.gnopai.contactgen.model.Address;
 import com.gnopai.contactgen.model.Contact;
 import com.gnopai.contactgen.model.Name;
 import com.gnopai.contactgen.model.Phone;
-
-import static com.google.common.collect.Lists.newArrayList;
+import com.google.common.base.Joiner;
 
 public class ContactTransformer {
 
@@ -39,14 +37,14 @@ public class ContactTransformer {
     }
 
     private String buildStreetAddress(ContactData contactData) {
-        return Joiner.on(" ").skipNulls().join(newArrayList(
+        return Joiner.on(" ").skipNulls().join(
                 contactData.getHouseNumber(),
                 contactData.getPreDirectionalShortName(),
                 contactData.getStreetName(),
                 contactData.getStreetSuffix(),
                 contactData.getPostDirectionalShortName(),
                 contactData.getUnitAsString()
-        ));
+        );
     }
 
     private Phone createPhone(ContactData contactData) {

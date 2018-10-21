@@ -2,8 +2,8 @@ package com.gnopai.contactgen.statistics.address;
 
 import au.com.bytecode.opencsv.CSVParser;
 import com.gnopai.contactgen.model.State;
-import com.gnopai.contactgen.statistics.StatisticsLoader;
 import com.gnopai.contactgen.statistics.ContactStatistics;
+import com.gnopai.contactgen.statistics.StatisticsLoader;
 import com.gnopai.contactgen.statistics.phone.AreaCodeCounter;
 import com.gnopai.contactgen.statistics.util.FileProcessor;
 import com.google.common.annotations.VisibleForTesting;
@@ -16,8 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 import java.util.List;
 import java.util.function.Supplier;
-
-import static com.google.common.collect.Lists.newArrayList;
 
 @Slf4j
 public class ZipCodeStatisticsLoader implements StatisticsLoader {
@@ -65,7 +63,7 @@ public class ZipCodeStatisticsLoader implements StatisticsLoader {
             ZipCodes.CityState cityState = new ZipCodes.CityState(primaryCity, state);
             zipCodesByCityState.put(cityState, zipCode);
 
-            List<String> areaCodes = newArrayList(fields[8].split(","));
+            List<String> areaCodes = List.of(fields[8].split(","));
             areaCodeCounter.addAll(state, zipCode, areaCodes);
 
         } catch (IOException e) {

@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static org.junit.Assert.assertEquals;
 
 public class FlatListDataLoaderTest {
@@ -25,6 +24,6 @@ public class FlatListDataLoaderTest {
         List<String> results = testClass.loadListFromFile("wheeeee");
 
         // THEN
-        assertEquals(newArrayList("Main", "Elm", "5th", "Whee", "El Ichio"), results);
+        assertEquals(List.of("Main", "Elm", "5th", "Whee", "El Ichio"), results);
     }
 }

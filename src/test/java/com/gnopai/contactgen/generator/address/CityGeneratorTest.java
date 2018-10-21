@@ -4,7 +4,6 @@ import com.gnopai.contactgen.generator.ContactData;
 import com.gnopai.contactgen.generator.random.RandomGenerator;
 import com.gnopai.contactgen.model.State;
 import com.gnopai.contactgen.statistics.ContactStatistics;
-import com.google.common.collect.ImmutableMap;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -14,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 
 import static com.gnopai.contactgen.model.State.OREGON;
-import static com.google.common.collect.Lists.newArrayList;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
@@ -26,8 +24,8 @@ public class CityGeneratorTest {
     public void testGenerate() throws Exception {
         // GIVEN
         State state = OREGON;
-        List<String> cities = newArrayList("Beavertron", "Portland", "Gresham");
-        Map<State, List<String>> citiesByState = ImmutableMap.of(state, cities);
+        List<String> cities = List.of("Beavertron", "Portland", "Gresham");
+        Map<State, List<String>> citiesByState = Map.of(state, cities);
         when(randomGenerator.selectNormallyDistributedListItem(cities)).thenReturn("Salem");
 
         ContactStatistics contactStatistics = ContactStatistics.builder().citiesByState(citiesByState).build();

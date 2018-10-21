@@ -4,11 +4,11 @@ import com.google.inject.Inject;
 import com.gnopai.contactgen.generator.ContactData;
 import com.gnopai.contactgen.generator.FieldGenerator;
 import com.gnopai.contactgen.statistics.ContactStatistics;
-import com.gnopai.contactgen.generator.random.Odds;
+import com.gnopai.contactgen.generator.random.Chance;
 import com.gnopai.contactgen.statistics.address.Directional;
 
 public class PostDirectionalGenerator implements FieldGenerator {
-    static final Odds ODDS = Odds.of(1).in(30);
+    static final Chance CHANCE = Chance.of(1).in(30);
     private final DirectionalGenerator directionalGenerator;
 
     @Inject
@@ -21,7 +21,7 @@ public class PostDirectionalGenerator implements FieldGenerator {
         if (contactData.hasPreDirectional()) {
             return contactData;
         }
-        Directional postDirectional = directionalGenerator.generate(ODDS);
+        Directional postDirectional = directionalGenerator.generate(CHANCE);
         return contactData.withPostDirectional(postDirectional);
     }
 }

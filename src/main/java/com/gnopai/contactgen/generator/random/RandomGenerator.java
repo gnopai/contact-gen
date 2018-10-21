@@ -16,5 +16,5 @@ public interface RandomGenerator {
     /** Returns a random integer between low (inclusive) and high (exclusive). */
     int selectInteger(Range range);
 
-    boolean selectChance(Odds odds);
+    boolean selectChance(Chance chance);
 }
