@@ -1,12 +1,13 @@
 package com.gnopai.contactgen.statistics.name;
 
-import com.gnopai.contactgen.statistics.StatisticsLoader;
 import com.gnopai.contactgen.statistics.ContactStatistics;
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
+import com.gnopai.contactgen.statistics.StatisticsLoader;
 import com.gnopai.contactgen.statistics.util.FileProcessor;
 import com.gnopai.contactgen.statistics.util.WeightedList;
 import com.gnopai.contactgen.statistics.util.WeightedListBuilderByVolume;
+import com.google.common.collect.Maps;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -57,12 +58,6 @@ public class FirstNamesStatisticsLoader implements StatisticsLoader {
     }
 
     private Map<Integer, WeightedList<String>> buildNamesByDecadeMap(Map<Integer, WeightedListBuilderByVolume<String>> listBuildersByDecade) {
-        Map<Integer, WeightedList<String>> namesByDecade = new HashMap<>();
-        for (Map.Entry<Integer, WeightedListBuilderByVolume<String>> entry : listBuildersByDecade.entrySet()) {
-            int decade = entry.getKey();
-            WeightedList<String> nameList = entry.getValue().build();
-            namesByDecade.put(decade, nameList);
-        }
-        return namesByDecade;
+        return Maps.transformValues(listBuildersByDecade, WeightedListBuilderByVolume::build);
     }
 }

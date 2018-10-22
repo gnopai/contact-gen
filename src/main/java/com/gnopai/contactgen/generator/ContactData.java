@@ -10,6 +10,8 @@ import lombok.experimental.Wither;
 
 import java.time.LocalDate;
 
+import static java.util.Optional.ofNullable;
+
 @Value
 @Builder
 @Wither
@@ -70,7 +72,7 @@ public class ContactData {
     }
 
     public String getPreDirectionalShortName() {
-        return preDirectional == null ? null : preDirectional.getShortName();
+        return ofNullable(preDirectional).map(Directional::getShortName).orElse(null);
     }
 
     public boolean hasPostDirectional() {
@@ -78,11 +80,11 @@ public class ContactData {
     }
 
     public String getPostDirectionalShortName() {
-        return postDirectional == null ? null : postDirectional.getShortName();
+        return ofNullable(postDirectional).map(Directional::getShortName).orElse(null);
     }
 
     public String getUnitAsString() {
-        return unit == null ? null : unit.toString();
+        return ofNullable(unit).map(Unit::toString).orElse(null);
     }
 
 }
