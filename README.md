@@ -38,5 +38,4 @@ interesting.
 * The only cities used are the most populous in each respective state -- it'd be nice to have small-town
 support.
 * Document where all the statistics files came from, and how to re-retrieve them in the future
-* Integration testing
 
