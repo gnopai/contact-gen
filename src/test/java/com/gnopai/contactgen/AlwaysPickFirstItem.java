@@ -1,4 +1,4 @@
-package com.gnopai.contactgen.generator;
+package com.gnopai.contactgen;
 
 import com.gnopai.contactgen.generator.random.Chance;
 import com.gnopai.contactgen.generator.random.RandomGenerator;

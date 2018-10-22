@@ -1,5 +1,6 @@
 package com.gnopai.contactgen.generator;
 
+import com.gnopai.contactgen.AlwaysPickFirstItem;
 import com.gnopai.contactgen.generator.address.*;
 import com.gnopai.contactgen.generator.dob.DateOfBirthGenerator;
 import com.gnopai.contactgen.generator.gender.GenderGenerator;
