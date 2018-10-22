@@ -19,7 +19,7 @@ public class ZipCodes {
     }
 
     @Value
-    static class CityState {
+    public static class CityState {
         String city;
         State state;
 

@@ -1,15 +1,5 @@
 package com.gnopai.contactgen;
 
-import com.gnopai.contactgen.generator.FieldGenerator;
-import com.gnopai.contactgen.generator.address.*;
-import com.gnopai.contactgen.generator.dob.DateOfBirthGenerator;
-import com.gnopai.contactgen.generator.gender.GenderGenerator;
-import com.gnopai.contactgen.generator.name.FirstNameGenerator;
-import com.gnopai.contactgen.generator.name.LastNameGenerator;
-import com.gnopai.contactgen.generator.name.MiddleInitialGenerator;
-import com.gnopai.contactgen.generator.phone.AreaCodeGenerator;
-import com.gnopai.contactgen.generator.phone.PhoneExchangeGenerator;
-import com.gnopai.contactgen.generator.phone.PhoneLineGenerator;
 import com.gnopai.contactgen.generator.random.RandomGenerator;
 import com.gnopai.contactgen.generator.random.StandardRandomGenerator;
 import com.gnopai.contactgen.statistics.StatisticsLoader;
@@ -62,48 +52,14 @@ public class ContactGeneratorModule extends AbstractModule {
                                                            StateStatisticsLoader stateStatisticsLoader,
                                                            ZipCodeStatisticsLoader zipCodeStatisticsLoader,
                                                            DateOfBirthStatisticsLoader dateOfBirthStatisticsLoader) {
-        return List.of(firstNamesStatisticsLoader, lastNamesStatisticsLoader,
-                streetNamesStatisticsLoader, cityStatisticsLoader, stateStatisticsLoader,
-                zipCodeStatisticsLoader, dateOfBirthStatisticsLoader);
-    }
-
-    @Provides
-    @Singleton
-    public List<FieldGenerator> provideFieldGenerators(GenderGenerator genderGenerator,
-                                                       DateOfBirthGenerator dateOfBirthGenerator,
-                                                       FirstNameGenerator firstNameGenerator,
-                                                       MiddleInitialGenerator middleInitialGenerator,
-                                                       LastNameGenerator lastNameGenerator,
-                                                       HouseNumberGenerator houseNumberGenerator,
-                                                       PreDirectionalGenerator preDirectionalGenerator,
-                                                       StreetNameGenerator streetNameGenerator,
-                                                       StreetSuffixGenerator streetSuffixGenerator,
-                                                       PostDirectionalGenerator postDirectionalGenerator,
-                                                       UnitGenerator unitGenerator,
-                                                       StateGenerator stateGenerator,
-                                                       CityGenerator cityGenerator,
-                                                       ZipCodeGenerator zipCodeGenerator,
-                                                       AreaCodeGenerator areaCodeGenerator,
-                                                       PhoneExchangeGenerator phoneExchangeGenerator,
-                                                       PhoneLineGenerator phoneLineGenerator) {
-        // Note that order here is the order they'll run in.
         return List.of(
-                genderGenerator,
-                dateOfBirthGenerator,
-                firstNameGenerator, // requires gender and DOB
-                middleInitialGenerator, // requires gender and DOB
-                lastNameGenerator,
-                houseNumberGenerator,
-                preDirectionalGenerator,
-                streetNameGenerator,
-                streetSuffixGenerator,
-                postDirectionalGenerator,
-                unitGenerator,
-                stateGenerator,
-                cityGenerator, // requires state
-                zipCodeGenerator, // requires city
-                areaCodeGenerator, // requires zip
-                phoneExchangeGenerator,
-                phoneLineGenerator);
+                firstNamesStatisticsLoader,
+                lastNamesStatisticsLoader,
+                streetNamesStatisticsLoader,
+                cityStatisticsLoader,
+                stateStatisticsLoader,
+                zipCodeStatisticsLoader,
+                dateOfBirthStatisticsLoader
+        );
     }
 }

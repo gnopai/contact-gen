@@ -1,7 +1,6 @@
 package com.gnopai.contactgen;
 
 import com.google.inject.Injector;
-import com.gnopai.contactgen.generator.ContactGeneratorService;
 
 import static com.google.inject.Guice.createInjector;
 
