@@ -1,6 +1,5 @@
 package com.gnopai.contactgen.statistics.util;
 
-import com.google.common.collect.ImmutableList;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import lombok.Value;
@@ -30,7 +29,7 @@ public class WeightedList<T> {
     }
 
     public List<Entry<T>> getEntries() {
-        return ImmutableList.copyOf(entries);
+        return List.copyOf(entries);
     }
 
     public List<T> toList() {

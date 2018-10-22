@@ -1,65 +1,48 @@
 package com.gnopai.contactgen.generator.random;
 
-import com.google.common.base.Strings;
 import com.gnopai.contactgen.statistics.util.WeightedList;
+import com.google.common.base.Strings;
+import com.google.common.collect.HashMultiset;
+import com.google.common.collect.Multiset;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.function.Supplier;
+import java.util.stream.IntStream;
 
+/** Helpful utility for testing out how different random distributions perform. */
 public class StandardRandomGeneratorTester {
-
-    private List<Integer> ints;
-    private Map<Integer, Integer> results = new HashMap<>();
     private RandomGenerator randomGenerator = new StandardRandomGenerator(new Random());
 
-    private void runWeightDistributionTest(String... weights) {
-        buildInts(weights.length);
+    public void runWeightDistributionTest(String... weights) {
         WeightedList<Integer> weightedList = new WeightedList<>();
-
-        int listCount = Math.min(ints.size(), weights.length);
-        for (int i = 0; i < listCount; i++) {
-            weightedList.add(ints.get(i), new BigDecimal(weights[i]));
-        }
-
-        for (int i = 1; i <= 100; i++) {
-            int result = randomGenerator.selectWeightDistributedListItem(weightedList);
-            addResult(result);
-        }
-        printResults();
+        IntStream.range(0, weights.length)
+                .forEach(i -> weightedList.add(i, new BigDecimal(weights[i])));
+        Multiset<Integer> results = runTest(100, () -> randomGenerator.selectWeightDistributedListItem(weightedList));
+        printResults(weights.length, results);
     }
 
-    private void runNormalDistributionTest(int count) {
-        buildInts(count);
-
-        for (int i = 1; i <= 1000; i++) {
-            int result = randomGenerator.selectNormallyDistributedListItem(ints);
-            addResult(result);
-        }
-        printResults();
+    public void runNormalDistributionTest(int count) {
+        List<Integer> ints = new ArrayList<>();
+        IntStream.range(0, count).forEach(ints::add);
+        Multiset<Integer> results = runTest(1000, () -> randomGenerator.selectNormallyDistributedListItem(ints));
+        printResults(count, results);
     }
 
-    private void buildInts(int count) {
-        ints = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
-            ints.add(i);
-        }
+    private Multiset<Integer> runTest(int runCount, Supplier<Integer> resultSupplier) {
+        Multiset<Integer> results = HashMultiset.create();
+        IntStream.range(0, runCount)
+                .forEach(i -> results.add(resultSupplier.get()));
+        return results;
     }
 
-    private void addResult(int result) {
-        if (results.containsKey(result)) {
-            results.put(result, results.get(result) + 1);
-        }
-        else {
-            results.put(result, 1);
-        }
-    }
-
-    private void printResults() {
-        for (int inty : ints) {
-            int count = results.getOrDefault(inty, 0);
-            String stars = Strings.repeat("*", count);
-            System.out.format("%3d: %s\n", inty, stars);
-        }
+    private void printResults(int count, Multiset<Integer> results) {
+        IntStream.range(0, count).forEach(value -> {
+            String stars = Strings.repeat("*", results.count(value));
+            System.out.format("%3d: %s\n", value, stars);
+        });
     }
 
     public static void main(String[] args) {

@@ -68,7 +68,7 @@ public enum State {
     private final String abbreviation;
     private final String name;
 
-    private State(String abbreviation, String name) {
+    State(String abbreviation, String name) {
         this.abbreviation = abbreviation;
         this.name = name;
     }
