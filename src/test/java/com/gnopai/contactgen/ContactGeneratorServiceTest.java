@@ -1,6 +1,6 @@
-package com.gnopai.contactgen.generator;
+package com.gnopai.contactgen;
 
-import com.gnopai.contactgen.generator.contact.ContactGenerator;
+import com.gnopai.contactgen.generator.ContactGenerator;
 import com.gnopai.contactgen.model.Contact;
 import com.gnopai.contactgen.statistics.ContactStatistics;
 import com.gnopai.contactgen.statistics.ContactStatisticsLoader;

@@ -1,27 +1,22 @@
-package com.gnopai.contactgen.generator.contact;
+package com.gnopai.contactgen.generator;
 
-import com.gnopai.contactgen.generator.ContactData;
-import com.gnopai.contactgen.generator.ContactTransformer;
-import com.gnopai.contactgen.generator.FieldGenerator;
 import com.gnopai.contactgen.model.Contact;
 import com.gnopai.contactgen.statistics.ContactStatistics;
 import com.google.inject.Inject;
 
-import java.util.List;
-
 public class ContactGenerator {
     private final ContactTransformer contactTransformer;
-    private final List<FieldGenerator> fieldGenerators;
+    private final FieldGenerators fieldGenerators;
 
     @Inject
-    public ContactGenerator(List<FieldGenerator> fieldGenerators, ContactTransformer contactTransformer) {
+    public ContactGenerator(FieldGenerators fieldGenerators, ContactTransformer contactTransformer) {
         this.fieldGenerators = fieldGenerators;
         this.contactTransformer = contactTransformer;
     }
 
     public Contact generateContact(ContactStatistics contactStatistics) {
         ContactData contactData = ContactData.empty();
-        for (FieldGenerator fieldGenerator : fieldGenerators) {
+        for (FieldGenerator fieldGenerator : fieldGenerators.get()) {
             if (fieldGenerator.requiresMoreData(contactData)) {
                 throw new IllegalStateException("Missing required data for generator " + fieldGenerator.getClass() + ". Order issue?");
             }

@@ -1,8 +1,5 @@
-package com.gnopai.contactgen.generator.contact;
+package com.gnopai.contactgen.generator;
 
-import com.gnopai.contactgen.generator.ContactData;
-import com.gnopai.contactgen.generator.ContactTransformer;
-import com.gnopai.contactgen.generator.FieldGenerator;
 import com.gnopai.contactgen.model.Contact;
 import com.gnopai.contactgen.statistics.ContactStatistics;
 import org.junit.Test;
@@ -22,6 +19,7 @@ public class ContactGeneratorTest {
     @Mock FieldGenerator fieldGenerator1;
     @Mock FieldGenerator fieldGenerator2;
     @Mock FieldGenerator fieldGenerator3;
+    @Mock FieldGenerators fieldGenerators;
 
     @Test
     public void testGenerateContact() {
@@ -41,7 +39,7 @@ public class ContactGeneratorTest {
         when(fieldGenerator2.requiresMoreData(any(ContactData.class))).thenReturn(false);
         when(fieldGenerator3.requiresMoreData(any(ContactData.class))).thenReturn(false);
 
-        List<FieldGenerator> fieldGenerators = List.of(fieldGenerator1, fieldGenerator2, fieldGenerator3);
+        when(fieldGenerators.get()).thenReturn(List.of(fieldGenerator1, fieldGenerator2, fieldGenerator3));
 
         Contact expectedContact = Contact.builder().ssn("yay").build();
         when(contactTransformer.transform(contactDataAfterGenerator3)).thenReturn(expectedContact);
@@ -61,7 +59,7 @@ public class ContactGeneratorTest {
         when(fieldGenerator1.requiresMoreData(any(ContactData.class))).thenReturn(false);
         when(fieldGenerator2.requiresMoreData(any(ContactData.class))).thenReturn(false);
         when(fieldGenerator3.requiresMoreData(any(ContactData.class))).thenReturn(true);
-        List<FieldGenerator> fieldGenerators = List.of(fieldGenerator1, fieldGenerator2, fieldGenerator3);
+        when(fieldGenerators.get()).thenReturn(List.of(fieldGenerator1, fieldGenerator2, fieldGenerator3));
 
         ContactGenerator testClass = new ContactGenerator(fieldGenerators, contactTransformer);
 
